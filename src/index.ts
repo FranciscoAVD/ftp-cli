@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { FTPClient } from "@/ftp-client";
 import { startSession } from "@/session";
 import { printHelp } from "@/commands";
+import { env } from "@/env";
 
 const program = new Command();
 
@@ -18,10 +19,11 @@ program
     printHelp();
     console.log(""); // Separate from previous
     const client = new FTPClient();
+    const isDev = env.NODE_ENV === "development";
     try {
       await startSession(client, {
-        host,
-        port: parseInt(opts.port, 10),
+        host: isDev ? env.FTP_SERVER_HOST : host,
+        port: isDev ? env.FTP_CONTROL_PORT : parseInt(opts.port, 10),
       });
     } catch (err) {
       console.error(

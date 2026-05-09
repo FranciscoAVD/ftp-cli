@@ -1,4 +1,4 @@
-import type { Commands } from "@/types";
+import type { Commands } from "@/lib/types";
 import { env } from "@/env";
 
 type Config = { host: string; port: number };
@@ -253,7 +253,7 @@ export class FTPClient {
     const host = `${h1}.${h2}.${h3}.${h4}`;
     const port = (Number(p1) << 8) + Number(p2);
 
-    if (env.NODE_ENV === "dev") {
+    if (env.NODE_ENV === "development") {
       const min = env.FTP_MIN_PASV_PORT;
       const max = env.FTP_MAX_PASV_PORT;
       if (port < min || port > max) {
@@ -379,13 +379,6 @@ export class FTPClient {
 
       let finalRes = cmdRes;
       if (cmdRes.code === 150) finalRes = await this.awaitResponse();
-
-      // const transferComplete = this.awaitResponse();
-      // await this.dataSocketClosed;
-      // const transferRes = await transferComplete;
-
-      // const merged = this.concatDataBuffer();
-      // this.dataSocket = null;
 
       return { ...finalRes, data: new TextDecoder().decode(merged) };
     } finally {

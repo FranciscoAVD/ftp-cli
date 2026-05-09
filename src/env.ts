@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    NODE_ENV: z.enum(["development", "production"]),
     FTP_SERVER_HOST: z.string(),
     FTP_DEFAULT_USER: z.string(),
     FTP_DEFAULT_USER_PASS: z.string(),
@@ -20,6 +21,7 @@ export const env = createEnv({
       .transform((p) => Number(p)),
   },
   runtimeEnv: {
+    NODE_ENV: Bun.env.NODE_ENV,
     FTP_SERVER_HOST: Bun.env.FTP_SERVER_HOST,
     FTP_CONTROL_PORT: Bun.env.FTP_CONTROL_PORT,
     FTP_MIN_PASV_PORT: Bun.env.FTP_MIN_PASV_PORT,
