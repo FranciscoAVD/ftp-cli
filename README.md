@@ -5,7 +5,7 @@
 ```mermaid
 graph TD
     %% Files
-    CLI["src/cli.ts<br/>(Entry Point)"]
+    CLI["src/index.ts<br/>(Entry Point)"]
     SESS["src/session.ts<br/>(Main Loop)"]
     CMD["src/commands.ts<br/>(FTP Actions)"]
     PROMPT["src/prompt.ts<br/>(Input/Hidden Masking)"]
