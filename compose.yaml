@@ -1,0 +1,14 @@
+services:
+  ftp-server:
+    image: delfer/alpine-ftp-server
+    container_name: ftp-test-server
+    ports:
+      - "${FTP_CONTROL_PORT}:21"
+      - "${FTP_MIN_PASV_PORT}-${FTP_MAX_PASV_PORT}:${FTP_MIN_PASV_PORT}-${FTP_MAX_PASV_PORT}"
+    environment:
+      - USERS=${FTP_DEFAULT_USER}|${FTP_DEFAULT_USER_PASS}
+      - ADDRESS=${FTP_HOST}
+      - MIN_PORT=${FTP_MIN_PASV_PORT}
+      - MAX_PORT=${FTP_MAX_PASV_PORT}
+    volumes:
+      - ./ftp_data:/home/${FTP_DEFAULT_USER}
